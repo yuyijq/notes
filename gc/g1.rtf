@@ -1,0 +1,24 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf350
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww9000\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 Garbage First(G1) low-pause, low-latency\
+server-style garbage collector, targeted for multi-processors with large memories, that meets a soft real-time goal with high probability. It does this while also achieving high throughput.\
+\
+broke a heap down into equally sized regions. In the strictest sense, the heap doesn't contain generational areas, although a subset of the regions can be treated as such.\
+\
+Regions are further broken down into 512 bytes section called cards. Each card has a corresponding one-byte entry in a global card table, which is used to track which card are modified by mutator threads. Subsets of these cards are tracked, and referred to as Remembered Sets(RS).\
+\
+G1 collector works in stages:\
+remembered set maintenance\
+concurrent marking\
+evacuation pauses\
+\
+RS maintenance\
+Each region maintains an associated subset of cards that have recently been written to called RS(card are placed in a region's RS via a write barrier).\
+For a particular region(region a), only cards that contain pointers from other regions to an object in region a are recorded in region a's RS. Region's internal references, as well as null references are ignored.\
+\
+Concurrent marking\
+Concurrent marking identifies live data objects per region, and maintains the pointer to next free byte called top. }
